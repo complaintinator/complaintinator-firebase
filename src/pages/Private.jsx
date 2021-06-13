@@ -7,13 +7,13 @@ function Private({ component: RouteComponent, ...rest }) {
   return (
     <Route
       {...rest}
-      render={(routeProps) =>
-        !!currentStatus ? (
+      render={(routeProps) => {
+        return currentStatus ? (
           <RouteComponent {...routeProps} />
         ) : (
           <Redirect to={"/"} />
-        )
-      }
+        );
+      }}
     />
   );
 }

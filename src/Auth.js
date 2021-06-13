@@ -6,14 +6,20 @@ export const AuthContext = React.createContext();
 
 export const Firebaseauthprovider = ({ children }) => {
   const [currentStatus, setCurrentStatus] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    firebaseConfig.auth().onAuthStateChanged(setCurrentStatus);
+    const status = firebaseConfig.auth().onAuthStateChanged((user) => {
+      setCurrentStatus(user);
+      setLoading(false);
+    });
+
+    return status;
   }, []);
 
   return (
     <AuthContext.Provider value={{ currentStatus }}>
-      {children}
+      {!loading && children}
     </AuthContext.Provider>
   );
 };
