@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { withRouter } from "react-router";
 import firebaseConfig from "../services/config";
 
@@ -6,6 +6,8 @@ function Register({ history }) {
   useEffect(() => {
     document.title = "Complaintinator | Register";
   }, []);
+
+  const [initMessage, setMessage] = useState(null);
 
   const styler =
     "shadow appearence-none w-full py-2 px-3 text-grey-darker mb-2 border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-800 text-white";
@@ -15,14 +17,18 @@ function Register({ history }) {
       e.preventDefault();
       const { employeeid, email, password, confirmpassword } =
         e.target.elements;
-      console.log(employeeid.value, confirmpassword.value);
+      console.log(employeeid.value);
       try {
-        await firebaseConfig
-          .auth()
-          .createUserWithEmailAndPassword(email.value, password.value);
-        history.push("/dashboard");
+        if (password.value === confirmpassword.value) {
+          await firebaseConfig
+            .auth()
+            .createUserWithEmailAndPassword(email.value, password.value);
+          history.push("/dashboard");
+        } else {
+          setMessage("Passwords does not match !");
+        }
       } catch (error) {
-        alert(error);
+        setMessage(error.message);
       }
     },
     [history]
@@ -35,6 +41,11 @@ function Register({ history }) {
           <p className="bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-yellow-500 text-lg md:text-2xl mt-1 text-center font-bold mb-5">
             Complaintinator
           </p>
+          {initMessage != null && (
+            <p className="mt-5 mb-5 text-white bg-red-600 p-2 border-2 border-red-500">
+              {initMessage}
+            </p>
+          )}
           <div className="mb-4">
             <label className="block text-gray-darker text-sm font-bold mb-2 text-white">
               Employee ID

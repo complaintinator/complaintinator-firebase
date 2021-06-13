@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Auth";
 
 function Navbar() {
+  const { currentStatus } = useContext(AuthContext);
+
   return (
     <header className="mx-auto max-w-6xl px-6 bg-transparent">
       <div className="relative md:flex flex-row justify-between py-4 align-center md:py-6">
@@ -22,12 +26,20 @@ function Navbar() {
           >
             Login
           </Link>
-          <a
+          {/* <a
             className="mr-5 text-yellow-500 p-3 rounded hover:text-blue-400 hover:bg-white transition duration-500 ease-in-out"
             href="/"
           >
             Admin
-          </a>
+          </a> */}
+          {currentStatus && (
+            <Link
+              className="mr-5 text-yellow-500 p-3 rounded hover:text-blue-400 hover:bg-white transition duration-500 ease-in-out"
+              to="/dashboard"
+            >
+              Dashboard
+            </Link>
+          )}
         </nav>
       </div>
     </header>
