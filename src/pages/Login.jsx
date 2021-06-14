@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { withRouter, Redirect } from "react-router";
 import firebaseConfig from "../services/config";
@@ -6,6 +6,10 @@ import { AuthContext } from "../Auth";
 import { useState } from "react";
 
 function Login({ history }) {
+  useEffect(() => {
+    document.title = "Complaintinator | Login";
+  }, []);
+
   const styler =
     "shadow appearence-none w-full py-2 px-3 text-grey-darker mb-2 border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-800 text-white";
 
