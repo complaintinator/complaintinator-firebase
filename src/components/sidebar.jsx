@@ -32,14 +32,25 @@ function Sidebar({ setSidebar }) {
             </label>
             <input type="text" className={styler} />
           </div>
-          <div className="mt-10">
+          <div className="mt-5">
             <label className="block text-gray-darker text-md font-bold mb-2 text-white tracking-wider uppercase">
-              Meta
+              Description
             </label>
             <textarea
               type="text"
-              className="shadow appearence-none w-full py-2 px-3 text-grey-darker mb-2 border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-600 text-white rounded shadow-md h-32"
+              className="shadow appearence-none w-full py-2 px-3 text-grey-darker mb-2 border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-600 text-white rounded shadow-md h-28"
             ></textarea>
+          </div>
+          <div className="mt-5">
+            <label className="block text-gray-darker text-md font-bold mb-2 text-white tracking-wider uppercase">
+              Location
+            </label>
+            <input type="text" className={styler} />
+          </div>
+          <div className="flex justify-center mt-20">
+            <button className="text-white text-lg uppercase tracking-wider bg-red-600 px-2 py-3 rounded hover:shadow-lg hover:bg-red-500">
+              Submit
+            </button>
           </div>
         </form>
       </nav>
