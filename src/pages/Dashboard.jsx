@@ -1,24 +1,29 @@
 import Sidebar from "../components/sidebar";
 import { useEffect, useState } from "react";
 import Dashboardnav from "../components/dashboardNavbar";
-import sanityClient from "../services/client";
+import { firestoreStorage } from "../services/config";
 import Cards from "../components/cards";
 
 function Dashboard() {
   const [initSidebar, setSidebar] = useState(false);
-  const [initData, setData] = useState(null);
+  const [initData, setData] = useState([]);
 
   useEffect(() => {
-    document.title = "Complaintinator | Dashboard";
-    sanityClient
-      .fetch(
-        `*[_type == "complaints"]{
-        title,
-        description
-      }`
-      )
-      .then((data) => setData(data))
-      .catch(console.error);
+    const loader = async () => {
+      try {
+        await firestoreStorage.collection("complaints").onSnapshot((snap) => {
+          let docs = snap.docs.map((doc) => {
+            return {
+              ...doc.data(),
+              id: doc.id,
+            };
+          });
+          setData(docs);
+        });
+      } catch (err) {}
+    };
+
+    loader();
   }, []);
 
   return (
@@ -27,20 +32,19 @@ function Dashboard() {
         {initSidebar && <Sidebar setSidebar={setSidebar} />}
         <div className="flex-1 p-10 font-bold">
           <Dashboardnav setSidebar={setSidebar} />
+          {initData.length === 0 && (
+            <p className="mt-10 text-center text-white">Loading...</p>
+          )}
+          <div className="mt-10">
+            {initData.map((instance) => {
+              return (
+                <section key={instance.title} className="mt-5">
+                  <Cards instance={instance} />
+                </section>
+              );
+            })}
+          </div>
         </div>
-        {initData == null && (
-          <p className="text-center text-white">Loading...</p>
-        )}
-        {!initData && <p className="text-center text-white">No complaints </p>}
-        {initData &&
-          initData.map((instance) => {
-            return (
-              <section key={instance.title} className="mt-5">
-                <Cards instance={instance} />;
-              </section>
-            );
-          })}
-        )
       </div>
     </main>
   );

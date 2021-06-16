@@ -1,4 +1,4 @@
-import firebaseConfig from "../services/config";
+import { firebaseAuth } from "../services/config";
 import { NavLink } from "react-router-dom";
 import "./styles/style.css";
 
@@ -32,7 +32,7 @@ function Dashboardnav({ setSidebar }) {
         </NavLink>
         <button
           className="text-white border-b-2 border-blue-500 hover:bg-white p-3 hover:text-blue-500 mx-5 font-bold transition duration-200 ease-in-out"
-          onClick={() => firebaseConfig.auth().signOut()}
+          onClick={() => firebaseAuth.signOut()}
         >
           Logout
         </button>

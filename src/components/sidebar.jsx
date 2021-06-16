@@ -1,5 +1,8 @@
 import cross from "../icons/cross.png";
 import { motion } from "framer-motion";
+import { firestoreStorage, timer } from "../services/config";
+import { AuthContext } from "../Auth";
+import { useContext } from "react";
 
 function Sidebar({ setSidebar }) {
   const styler =
@@ -7,6 +10,30 @@ function Sidebar({ setSidebar }) {
 
   const crossHandler = () => {
     setSidebar(false);
+  };
+
+  const { currentStatus } = useContext(AuthContext);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const { title, description, location } = e.target.elements;
+
+    firestoreStorage
+      .collection("complaints")
+      .add({
+        title: title.value,
+        description: description.value,
+        location: location.value,
+        createdBy: currentStatus.uid,
+        isCompleted: false,
+        createdOn: timer(),
+      })
+      .then((docRef) => {
+        console.log(`Successfully created ! ${docRef.id}`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -25,12 +52,12 @@ function Sidebar({ setSidebar }) {
         />
       </div>
       <nav className="mt-5 mx-auto w-4/5">
-        <form>
+        <form onSubmit={submitHandler}>
           <div>
             <label className="block text-gray-darker text-md font-bold mb-2 text-white tracking-wider uppercase">
               Title
             </label>
-            <input type="text" className={styler} />
+            <input type="text" className={styler} name="title" />
           </div>
           <div className="mt-5">
             <label className="block text-gray-darker text-md font-bold mb-2 text-white tracking-wider uppercase">
@@ -39,13 +66,14 @@ function Sidebar({ setSidebar }) {
             <textarea
               type="text"
               className="shadow appearence-none w-full py-2 px-3 text-grey-darker mb-2 border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-600 text-white rounded shadow-md h-28"
+              name="description"
             ></textarea>
           </div>
           <div className="mt-5">
             <label className="block text-gray-darker text-md font-bold mb-2 text-white tracking-wider uppercase">
               Location
             </label>
-            <input type="text" className={styler} />
+            <input type="text" className={styler} name="location" />
           </div>
           <div className="flex justify-center mt-20">
             <button className="text-white text-lg uppercase tracking-wider bg-red-600 px-2 py-3 rounded hover:shadow-lg hover:bg-red-500">

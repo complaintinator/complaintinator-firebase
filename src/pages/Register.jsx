@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { withRouter } from "react-router";
-import firebaseConfig from "../services/config";
+import { firebaseAuth } from "../services/config";
 
 function Register({ history }) {
   useEffect(() => {
@@ -20,9 +20,10 @@ function Register({ history }) {
       console.log(employeeid.value);
       try {
         if (password.value === confirmpassword.value) {
-          await firebaseConfig
-            .auth()
-            .createUserWithEmailAndPassword(email.value, password.value);
+          await firebaseAuth.createUserWithEmailAndPassword(
+            email.value,
+            password.value
+          );
           history.push("/dashboard");
         } else {
           setMessage("Passwords does not match !");

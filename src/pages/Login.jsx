@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { withRouter, Redirect } from "react-router";
-import firebaseConfig from "../services/config";
+import { firebaseAuth } from "../services/config";
 import { AuthContext } from "../Auth";
 import { useState } from "react";
 
@@ -20,9 +20,10 @@ function Login({ history }) {
       e.preventDefault();
       const { email, password } = e.target.elements;
       try {
-        await firebaseConfig
-          .auth()
-          .signInWithEmailAndPassword(email.value, password.value);
+        await firebaseAuth.signInWithEmailAndPassword(
+          email.value,
+          password.value
+        );
         history.push("/dashboard");
       } catch (error) {
         setMessage(error.message);
