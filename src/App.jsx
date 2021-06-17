@@ -5,6 +5,7 @@ import { Firebaseauthprovider } from "./Auth";
 import Private from "./pages/Private";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
+import Search from "./pages/Search";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Router>
         <Switch>
           <Private exact path="/dashboard" component={Dashboard} />
+          <Private exact path="/search" component={Search} />
           <Route path="/" exact>
             <Home />
           </Route>
