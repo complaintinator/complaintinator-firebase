@@ -9,7 +9,7 @@ function Navbar() {
     <header className="mx-auto max-w-6xl px-6 bg-transparent">
       <div className="relative md:flex flex-row justify-between py-4 align-center md:py-6">
         <div className="flex items-center flex-1">
-          <p className="text-3xl font-bold text-gray-700 md:text-2xl hidden md:inline">
+          <p className="text-3xl font-bold text-gray-100 md:text-2xl hidden md:inline">
             Complaintinator
           </p>
         </div>

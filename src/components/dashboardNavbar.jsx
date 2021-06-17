@@ -24,7 +24,7 @@ function Dashboardnav({ setSidebar }) {
           New Complaint
         </button>
         <NavLink
-          to="/"
+          to="/search"
           className="text-white border-b-2 border-blue-500 hover:bg-white p-3 hover:text-blue-500 mx-5 transition duration-200 ease-in-out"
           exact
         >

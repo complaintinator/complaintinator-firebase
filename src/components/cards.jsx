@@ -1,5 +1,6 @@
 import { useState } from "react";
 import up from "../icons/up.png";
+import moment from "moment";
 
 function Cards({ instance }) {
   const [initDrop, setDrop] = useState(false);
@@ -21,6 +22,11 @@ function Cards({ instance }) {
         >
           {instance.title}
         </p>
+        {instance.createdOn && (
+          <p className="mt-2 text-gray-200 font-light text-sm">
+            {moment(instance.createdOn.toDate()).calendar()}
+          </p>
+        )}
         {initDrop && (
           <div>
             <img
