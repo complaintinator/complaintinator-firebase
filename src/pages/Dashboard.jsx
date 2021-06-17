@@ -1,30 +1,35 @@
 import Sidebar from "../components/sidebar";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Dashboardnav from "../components/dashboardNavbar";
 import { firestoreStorage } from "../services/config";
 import Cards from "../components/cards";
+import { AuthContext } from "../Auth";
 
 function Dashboard() {
   const [initSidebar, setSidebar] = useState(false);
   const [initData, setData] = useState([]);
+  const { currentStatus } = useContext(AuthContext);
 
   useEffect(() => {
     const loader = async () => {
       try {
-        await firestoreStorage.collection("complaints").onSnapshot((snap) => {
-          let docs = snap.docs.map((doc) => {
-            return {
-              ...doc.data(),
-              id: doc.id,
-            };
+        await firestoreStorage
+          .collection("complaints")
+          .where("createdBy", "==", currentStatus.uid)
+          .onSnapshot((snap) => {
+            let docs = snap.docs.map((doc) => {
+              return {
+                ...doc.data(),
+                id: doc.id,
+              };
+            });
+            setData(docs);
           });
-          setData(docs);
-        });
       } catch (err) {}
     };
 
     loader();
-  }, []);
+  }, [currentStatus.uid]);
 
   return (
     <main>
