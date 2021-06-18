@@ -9,7 +9,7 @@ function Dashboardnav({ setSidebar }) {
 
   return (
     <header className="mx-auto max-w-6xl px-6 bg-transparent">
-      <div className="flex items-center flex-1"></div>
+      <div className="flex md:items-center flex-1"></div>
       <nav className="flex">
         <NavLink
           to="/dashboard"

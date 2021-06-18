@@ -32,9 +32,9 @@ function Login({ history }) {
     [history]
   );
 
-  const { currentStaus } = useContext(AuthContext);
+  const { currentStatus } = useContext(AuthContext);
 
-  if (currentStaus) {
+  if (currentStatus) {
     return <Redirect to="/dashboard" />;
   }
 

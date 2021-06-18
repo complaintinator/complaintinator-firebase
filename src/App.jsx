@@ -6,6 +6,7 @@ import Private from "./pages/Private";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Search from "./pages/Search";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
         <Switch>
           <Private exact path="/dashboard" component={Dashboard} />
           <Private exact path="/search" component={Search} />
+          <Route path="/admin" exact>
+            <AdminDashboard />
+          </Route>
           <Route path="/" exact>
             <Home />
           </Route>
