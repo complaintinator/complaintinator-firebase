@@ -9,5 +9,6 @@ view project in browser
 ### `npm start`
 
 visit and create a firebase project [firebase](https://firebase.google.com)
+
 Install firebase 
 ### `npm install firebase`
