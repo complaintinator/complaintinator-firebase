@@ -8,6 +8,6 @@ Install node modules before
 view project in browser
 ### `npm start`
 
-visit and create a firebase project [https://firebase.google.com](firebase)
+visit and create a firebase project [firebase](https://firebase.google.com)
 Install firebase 
 ### `npm install firebase`
